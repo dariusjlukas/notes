@@ -81,6 +81,7 @@ nav{
 
   /* Dropdown button */
 .dropdown .dropbtn {
+    cursor: pointer;
     font-size: 1em;
     border: none;
     outline: none;
@@ -93,6 +94,7 @@ nav{
 
   /* Dropdown content (hidden by default) */
 .dropdown-content {
+    cursor: pointer;
     display: none;
     position: absolute;
     background-color: #ffffff;
