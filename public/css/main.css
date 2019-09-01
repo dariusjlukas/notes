@@ -1,0 +1,83 @@
+section{
+    text-align: center;
+}
+
+.sticky{
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.sticky + section{
+    padding-top: 60px;
+}
+
+.color_btn_dark{
+    border: none;
+    background: #424242;
+    color: white;
+    padding: 1em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    border-radius: .1em;
+}
+
+.color_btn_light{
+    border: none;
+    background: #bdbdbd;
+    color:black;
+    padding: 1em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    border-radius: .1em;
+}
+
+.color_btn_dark:hover{
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+    background:#2e2a2a;
+}
+
+.color_btn_light:hover{
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+    background: #ece8e8;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 8em;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 4px;
+    border-radius: 6px;
+   
+    /* Position the tooltip text*/
+    position: absolute;
+    z-index: 99;
+    top: 100%;
+    left: 50%;
+    margin-left: -4em;
+  }
+  
+  .cmd .tooltip{
+    text-decoration: underline dotted green;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
