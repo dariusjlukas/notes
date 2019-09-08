@@ -392,7 +392,33 @@ input[type=button], input[type=submit], input[type=reset] {
   body, header, nav {
      font-size: 1.0em;
   }
-  .footer {
+  .footer, .topBtn {
+    visibility: hidden;
+  }
+  .navbar, .dropdown, .navbar a, .navbar .linkButton{
+    width: 100%; 
+    padding-left: 0; padding-right: 0;
+    background-color: #e0e0e0;
+  }
+
+  .navbar a{
+    background: transparent;
+  }
+
+  .dropdown:hover{
+    background-color: #ffffff;
+    cursor: pointer;
+  }
+
+  header{
+    text-align: center;
+  }
+
+  .dropdown{
+    text-align: center;
+  }
+
+  .dropdown-content{
     visibility: hidden;
   }
 }

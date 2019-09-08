@@ -38,7 +38,7 @@ sticky = navbar.offsetTop;
 
 // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
 function scrollFunction() {
-    if (window.pageYOffset >= sticky) {
+    if (window.pageYOffset >= sticky && window.screen.width > 800) {
         navbar.classList.add("sticky")
         document.getElementById("topBtn").style.display = "block";
     } else {
