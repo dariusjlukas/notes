@@ -389,3 +389,13 @@ input[type=button], input[type=submit], input[type=reset] {
 .sdark{
     background-color: #8d8d8d;
 }
+
+
+@media screen and (max-width: 800px) {
+  body, header, nav {
+     font-size: 1.0em;
+  }
+  .footer {
+    visibility: hidden;
+  }
+}
