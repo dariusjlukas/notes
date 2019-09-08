@@ -13,7 +13,7 @@ header{
     margin: 0;
     padding: .5em;
     text-align: center;
-    font-size: 16pt;
+    font-size: 1.2em;
     background-color: #1b1b1b;
 }
 nav{
@@ -190,13 +190,6 @@ nav{
   overflow: hidden;
   font-size: 0.9em;
   transition: max-height 0.2s ease-out;
-}
-
-section{
-    margin-top: 1em;
-    margin-bottom: 1em;
-    padding: 0.2em;
-    font-size: 1.1em;
 }
 
 footer{

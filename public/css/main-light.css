@@ -13,7 +13,7 @@ header{
     margin: 0;
     padding: .5em;
     text-align: center;
-    font-size: 16pt;
+    font-size: 1.2em;
     background-color: #ffffff;
 }
 
@@ -187,13 +187,6 @@ nav{
   overflow: hidden;
   font-size: 0.9em;
   transition: max-height 0.2s ease-out;
-}
-
-section{
-    margin-top: 1em;
-    margin-bottom: 1em;
-    padding: 0.2em;
-    font-size: 1.1em;
 }
 
 footer{
@@ -392,4 +385,14 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 .sdark{
   background-color: #8d8d8d;
+}
+
+
+@media screen and (max-width: 800px) {
+  body, header, nav {
+     font-size: 1.0em;
+  }
+  .footer {
+    visibility: hidden;
+  }
 }
