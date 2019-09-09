@@ -395,9 +395,15 @@ input[type=button], input[type=submit], input[type=reset] {
   body, header, nav {
      font-size: 1.0em;
   }
-  .footer, .topBtn {
+  .footer {
     visibility: hidden;
   }
+
+  .topBtn{
+    font-size: 1em;
+    padding: .9em;
+  }
+
   .navbar, .dropdown, .navbar a, .navbar .linkButton{
     width: 100%; 
     padding-left: 0; padding-right: 0;
@@ -414,7 +420,7 @@ input[type=button], input[type=submit], input[type=reset] {
   }
 
   .dropdown:hover{
-    background-color: rgb(82, 78, 78);
+    background-color: rgb(85, 85, 85);
     cursor: pointer;
   }
 

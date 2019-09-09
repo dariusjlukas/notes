@@ -95,7 +95,7 @@ section{
     }
 
     .color_btn_dark, .color_btn_light {
-        padding: 0.5em;
-        font-size: 0.9em;
+        padding: 1em;
+        font-size: 1.1em;
     }
 }
