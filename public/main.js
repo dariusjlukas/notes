@@ -18,10 +18,10 @@ function setNewSearch(search){
 function readPath(){
     var currentPathArray = window.location.search.split('?');
     if(currentPathArray[1] == "dark"){
-        swapStyleSheet('css/main-dark.css');
+        swapStyleSheet('/public/css/main-dark.css');
     }
     else{
-        swapStyleSheet('css/main-light.css');
+        swapStyleSheet('/public/css/main-light.css');
     }
 }
 
