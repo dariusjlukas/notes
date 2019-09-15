@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link id="stylesheet" rel="stylesheet" type="text/css" href="main-light.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <title>Darius Notes</title>
+</head>
+
+<body onload="readPath()">
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/6.3.3/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#reserved-urls -->
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+
+    <header>
+        Turtlebot3 Overview
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("nav.html");
+        });
+    </script>
+
+
+
+
+
+    <!-- Content -->
+    <section>
+        <div style="text-align: center">
+            <iframe src="https://drive.google.com/file/d/1vxX1YdDo581P2be_WJehSiyzpY00sePx/preview" width="405" height="540"></iframe>
+        </div>
+        <div class="box">
+            The stock turtlebot3 burger uses a raspberry pi <div class="tooltip">SBC<span class="tooltiptext">Single Board Computer</span></div>
+            to run <div class="tooltip">ROS<span class="tooltiptext">Robot Operating System</span></div>, which
+            is what the user interacts with. There is also a embedded board called the OpenCR which runs the
+            DYNAMIXEL-brand servo motors and houses the IMU. The OpenCR board has a variety of open ports such as
+            UART, I2C, SPI, and CAN which the user could make use of. The OpenCR board runs off of an STM32 F7-series 
+            microcontroller, which implements and ARM Cortex-M7 processor and can be programmed using the arduino editor.
+            The stock firmware can be found <a target="_blank" href="http://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#opencr-setup">here</a>. 
+            It should be noted that almost all components on the turtlebot3 are open source, so you can find all the software, mechanical cad, 
+            and electrical designs online; mostly on <div class="tooltip">Robotis'<span class="tooltiptext">company in charge of turtlebot3
+            documentation</span></div> website.
+        </div>
+        <div class="box" style="text-align: left">
+            <h4 style="color: #f44336">Warnings:</h4>
+            <ul>
+                <li>Do NOT power the turtlebots via the usb port on the raspberry pi, I have killed a pi doing this</li>
+                <li>Do NOT leave the batteries plugged in to the turtlebots or they will be discharged down to 0v. If this happens, I do not recommend charging them again (the chargers won’t let you anyway)</li>
+            
+            </ul>
+        </div>
+        <div class="box" style="text-align: center">
+            <h4>More Info:</h4>
+            <a onclick="window.location='turtleQuickStart.html'+window.location.search">Quick Start (setup must be completed first)</a>
+            <br>
+            <a onclick="window.location='turtleSetup.html'+window.location.search">Turtlebot Initial Setup (this step should not need to be done unless you have a 
+                new turtlebot)</a>
+            <br>
+            <a onclick="window.location='turtleWorkstationSetup.html'+window.location.search">Workstation Setup (set up your computer to work with the turtlebots)</a>
+            <br>
+            <a onclick="window.location='turtleTroubleshooting.html'+window.location.search">Troubleshooting (something went wrong)</a>
+            <br>
+            <a onclick="window.location='turtleUsefulInfo.html'+window.location.search">Useful Info (misc. information about the turtlebot)</a>
+            <br>
+            <a onclick="window.location='turtleResource.html'+window.location.search">Turtlebot Resources</a>
+        </div>
+    </section>
+
+
+
+    <!-- Top button -->
+    <div>
+        <button id="topBtn" class="topBtn" onclick="document.body.scrollTop = 0; document.documentElement.scrollTop = 0;">^ Top</button>
+    </div>
+
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>

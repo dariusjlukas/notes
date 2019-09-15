@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        Mynt Eye Examples
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <div class="dark box">
+            Disclaimer: Everything on this page can be found in various places on <a target="_blank" href="https://mynt-eye-d-sdk.readthedocs.io/en/latest/installation/build_linux.html">this</a> site.
+        </div>
+        <div class="dark box">
+            <h4>Mynt Eye SDK samples:</h4>
+            <p>
+                Assuming you have installed the Mynt Eye SDK and have the Mynt Eye camera plugged into your computer
+                you can use the SDK samples to get data from the camera. Before running the samples, be sure to 
+                cd into the directory where you downloaded the SDK; for example:
+                <div class="cmd">
+                    $ cd MYNT-EYE-D-SDK/
+                </div>
+                To get a simple depth image from the camera, run:
+                <div class="cmd">
+                    $ ./samples/_output/bin/get_image
+                </div>
+                Press "q" to quit the example. This is one of the only samples that can run on USB 2.0. The output 
+                should look something like: 
+                <div class="boxContainer centered">
+                    <div class="box">
+                            <img style="width: 60%; display: block; margin-left: auto; margin-right: auto;" src="images/MyntDepthE1.png" alt="Color depth image from the Mynt Eye D">
+                    </div>
+                </div>
+                <br>
+                To do the same thing at 30fps (required USB 3.0) run:
+                <div class="cmd">
+                    $ ./samples/_output/bin/get_stereo_image
+                </div>
+                To view the data as a point-cloud, run:
+                <div class="cmd">
+                    $ ./samples/_output/bin/get_points
+                </div>
+                Note that the point cloud demo relies on the PCL library so if you did not install it earlier and 
+                this example failed, that is why. That being said, it may not be necessary to install it because
+                if your end goal is to use ROS I do not believe ROs requires the <div class="tooltip">PCL<span class="tooltiptext">Point Cloud Library</span></div> library for point-cloud 
+                rendering. If the example worked, you should get output like this: 
+                <div class="boxContainer centered">
+                    <div class="box">
+                            <img style="width: 60%; display: block; margin-left: auto; margin-right: auto;" src="images/MyntDepthE2.png" alt="point cloud image from the Mynt Eye D">
+                    </div>
+                </div>
+                Also, you can click and hold to rotate the point cloud image:
+                <div class="boxContainer centered">
+                    <div class="box">
+                            <img style="width: 60%; display: block; margin-left: auto; margin-right: auto;" src="images/MyntDepthE3.png" alt="point cloud image from the Mynt Eye D">
+                    </div>
+                </div>
+                More samples can be found <a target="_blank" href="https://mynt-eye-d-sdk.readthedocs.io/en/latest/installation/build_linux.html">here</a> 
+                (or, you could use "ls" in the SDK directory to see what exists).
+            </p>
+        </div>
+
+        <div class="dark box" id="ros">
+            <h4>ROS Usage:</h4>
+            <p>
+                If you have not installed the ROS packages for the Mynt Eye, head back to the 
+                <a href="myntSetup.html">setup</a> page first.
+                <br>
+                Start by launching the ROS master on the computer you configured as the master with ROS_MASTER_URI by typing:
+                <div class="cmd">
+                    $ roscore
+                </div>
+                Then, cd into the directory where you installed the Mynt Eye SDK (likely cd ~/MYNT-EYE-D-SDK) and launch the display package:
+                <div class="cmd">
+                    $ source ./wrappers/ros/devel/setup.bash <br>
+                    $ roslaunch mynteye_wrapper_d display.launch
+                </div>
+                If instead you only want to publish the data, use:
+                <div class="cmd">
+                    $ source ./wrappers/ros/devel/setup.bash <br>
+                    $ roslaunch mynteye_wrapper_d mynteye.launch
+                </div>
+                You can then subscribe to the data using:
+                <div class="cmd">
+                    $ source ./wrappers/ros/devel/setup.bash <br>
+                    $ rosrun mynteye_wrapper_d mynteye_listener_d
+                </div>
+            </p>
+        </div>
+
+        <div class="dark box">
+            <h4>Odometry (uses ROS):</h4>
+            The only two visual odomotry packages I have been able to get working are VINS-Mono and VINS-Fusion. 
+            This is not the worst thing, because based on an online visual odometry <a target="_blank" href="http://www.cvlibs.net/datasets/kitti/eval_odometry.php">benchmark</a>
+            VINS is the best of the open source options. Of the two, VINS-Fusion tends to have much better 
+            performance, which would make sense since it uses both cameras instead of just one. 
+            <br>
+            To install VINS-Fusion, you will first need to install Docker (VINS-Fusion runs in a docker container).
+            You can do this by using these commands that I found <a target="_blank" href="https://mynt-eye-d-sdk.readthedocs.io/en/latest/slam/vins_fusion.html">here</a>.
+            <div class="cmd">
+                $ sudo apt update <br>
+                $ sudo apt-get install \<br>
+                &nbsp &nbsp apt-transport-https \<br>
+                &nbsp &nbsp ca-certificates \<br>
+                &nbsp &nbsp curl \<br>
+                &nbsp &nbsp gnupg-agent \<br>
+                &nbsp &nbsp software-properties-common<br>
+                $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - <br>
+                $ sudo add-apt-repository \<br>
+                &nbsp &nbsp "deb [arch=amd64] https://download.docker.com/linux/ubuntu \<br>
+                &nbsp &nbsp $(lsb_release -cs) \<br>
+                &nbsp &nbsp stable"<br>
+                $ sudo apt update <br>
+                $ sudo apt install docker-ce docker-ce-cli containerd.io
+            </div>
+            Next, download the samples:
+            <div class="cmd">
+                $ git clone -b docker_feat https://github.com/slightech/MYNT-EYE-VINS-FUSION-Samples.git <br>
+                $ cd MYNT-EYE-VINS-FUSION-Sample/docker <br>
+                $ sudo make build
+            </div>
+            Finally, run the Mynt Eye node and launch VINS-Fusion:
+            <div class="cmd">
+                $ cd MYNT-EYE-D-SDK <br>
+                $ source ./wrappers/ros/devel/setup.bash <br>
+                $ roslaunch mynteye_wrapper_d vins_fusion.launch stream_mode:=1
+            </div>
+            Open a new terminal, and type:
+            <div class="cmd">
+                $ cd MYNT-EYE-VINS-FUSION-Sample/docker <br>
+                $ ./run.sh mynteye-d/mynt_stereo_imu_config.yaml
+            </div>
+        </div>
+    </section>
+
+    
+</body>
+
+</html>

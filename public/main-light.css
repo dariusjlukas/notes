@@ -199,13 +199,16 @@ footer{
 }
 
 a{
-  color: #9fa8da;
+  color: #919bd1;
 }
 
 .box{
     margin: 1em;
     padding: 0.8em;
     flex-grow: 1;
+    background-color: #eee8e8;
+    color: #000000;
+    text-align: left;
 }
 
 .boxContainer{

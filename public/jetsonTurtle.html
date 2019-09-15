@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        Jetson Nano Turtlebot Usage
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <!-- <div class="boxContainer" style="margin-top: 5em; width: 100%;">
+            <div class="box">
+                <img class="rotateimg90" style="max-height: 90%; max-width: 50%; float: left" src="/images/turtleJetson1.jpg" alt="Image of the turtlebot with only the Jetson Nano SBC">
+            </div>
+            <div class="box">
+                <img class="rotateimg90" style="max-height: 90%; max-width: 50%; float: left;" src="images/turtleJetsonPi.jpg" alt="Turtlebot with Jetson Nano and Raspberry Pi">
+            </div>
+        </div> -->
+        <div class="row" style="padding-top: 5em; padding-bottom: 5em;">
+            <div class="column">
+                <img class="rotateimg90" style="max-height: 90%; max-width: 100%; float: left" src="/images/turtleJetson1.jpg" alt="Image of the turtlebot with only the Jetson Nano SBC">
+            </div>
+            <div class="column">
+                <img class="rotateimg90" style="max-height: 90%; max-width: 100%; float: left;" src="images/turtleJetsonPi.jpg" alt="Turtlebot with Jetson Nano and Raspberry Pi">
+            </div>
+        </div>
+        <div class="dark box">
+            <h4>Overview</h4>
+            The Jetson Nano can be used in conjunction with or instead of a Raspberry Pi 3 on the Turtlebot 3's. 
+            The main limitation of using the Jetson Nano is that it's only compatible with ROS Melodic, whereas the 
+            Raspberry Pi's use ROS Kinetic. At the time of writing this, almost all packages used by the turtlebot 
+            have been ported to ROS Melodic except for GMapping and possibly a few others. This is not necessarily 
+            a problem if you are running most of the turtlebot packages on a separate computer, since you can use 
+            an external computer running Kinetic to interface with the turtlebot running Melodic. It should also be 
+            noted that the Jetson Nano does not come with WiFi capabilities, so you will need to get a <span class="tooltip">NIC<span class="tooltiptext">Network Interface Card</span></span> if you 
+            will be using the Jetson Nano as the sole <span class="tooltip">SBC<span class="tooltiptext">Single Board Computer</span></span>. 
+            A compatible NIC can be found <a target="_blank" href="https://www.amazon.com/Intel-Dual-Band-Wireless-Ac-8265/dp/B01MZA1AB2/ref=as_li_ss_tl?keywords=intel+8265ngw&qid=1554739126&s=gateway&sr=8-1&linkCode=sl1&tag=jetsonhacks-20&linkId=ddc9ed0c07468175a00a20f14118fac5&language=en_US">here</a>, 
+            and a complete set of parts lists can be found under the Resources tab. <br> <br>
+
+            Alternatively, you can get the most compatibility by running both the Jetson Nano and a Raspberry Pi 
+            on the Turtlebot. The problems with doing that are physical space on the turtlebot, powering the 
+            Jetson Nano, and adding the Jetson Nano to the ROS network. Physical space can be solved by adding more 
+            plates to the turtlebot (if you run out of plates, they can be 3D printed relatively well). Powering 
+            can be difficult because the OpenCR normally provides 5v to the Raspberry Pi, which can be used directly 
+            if the Jetson Nano is used instead. It should be noted that you must put a jumper on J48 to switch to powering 
+            from the barrel jack instead of from the USB port. If you want to use both the Jetson Nano and Raspberry Pi then the 
+            Jetson Nano will need a different power supply (because the one on the OpenCR is limited to 4A max). 
+            The OpenCR does have a power pass-through from the battery, which will need to be regulated to 5v. A 
+            buck converted can be used to do this, and a suitable one can be found <a href="#">here</a>. Ideally, 
+            the Jetson Nano would be powered from both of its 5v pins on the GPIO header (3A max each) and you would 
+            not need to worry about not having enough power for peripherals. That being said, you can get away with 
+            powering the Jetson through the barrel jack connector at a maximum of 4A or even through only one 5v header 
+            pin, although I would highly recommend using both header pins because the Jetson will still pull over 4A 
+            through the 3A rated pin, which could cause damage over time. 
+        </div>
+
+        <div class="dark box">
+            <h4>Jetson+Raspberry Pi Architecture</h4>
+            Turtlebot #4 is configured with both a Jetson Nano and Raspberry Pi, so there are a few important architecture 
+            differences compared to a Turtlebot with only one <span class="tooltip">SBC<span class="tooltiptext">Single Board Computer</span></span>, 
+            namely the connection between the Pi and Jetson Nano, the Jetson Nano power delivery, and the distribution of control.
+            The Jetson and Pi are both on the same Wifi network so it is possible for them to communicate that way. The problem is 
+            that there is limited bandwidth and high latency, around 100 ms based on pings. So, as an alternative to communicating 
+            over Wifi there is also an <span class="tooltip">ethernet<span class="tooltiptext">A spliced category or "cat" 5e 
+                cable to be precise</span></span> cable running between the Jetson and Pi which provides a gigabit, sub 1 ms 
+            latency connection between them. One way to have the traffic between the Jetson and Pi go through the ethernet 
+            cable and all other traffic go over Wifi is to run the master node on the Pi, and then on the Jetson set the 
+            master node as the Pi's IP address over the ethernet cable. All other devices can then use the Pi's Wifi IP address. 
+            This way communication between the Pi and Jetson will use the ethernet cable but outside computers can still be on the 
+            same ROS network. This is obviously problematic though if you want to run multiple Turtlebots like this at the same 
+            time, in which case you may need to find a better solution.
+        </div>
+    </section>
+
+    
+</body>
+
+</html>

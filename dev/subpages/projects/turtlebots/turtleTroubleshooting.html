@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link id="stylesheet" rel="stylesheet" type="text/css" href="main-light.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <title>Darius Notes</title>
+</head>
+
+<body onload="readPath()">
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/6.3.3/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#reserved-urls -->
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+
+    <header>
+        Test Page
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("nav.html");
+        });
+    </script>
+
+
+
+
+
+    <!-- Content -->
+    <section>
+        <div class="box">
+            <h3>Common Problems:</h3>
+            <button class="accordion">You go to launch turtlebot3_bringup on the turtlebot and
+                it complains that it does not exist.</button>
+            <div class="panel">
+                <p>
+                    It is likely that the correct setup.sh script has not been sourced. If you are using an older turtlebot 
+                    (some of the short ones) go with number 2, if you are using a newer one (a taller one) use number 1. The 
+                    difference is if the turtlebot has a ~/burger_ws directory and a ~/catkin_ws directory or just a 
+                    ~/catkin_ws directory. The newer ones only have a ~/catkin_ws directory. 
+                    <ol>
+                        <li>
+                            If you are using a standard package, try sourceing the ~/catkin_ws/devel/setup.sh and the 
+                            /opt/ros/kinetic/setup.sh (/opt/ros/melodic/setup.sh if you are using a Jetson Nano) by:
+                            <div class="cmd">
+                                $ source /opt/ros/kinetic/setup.sh<br>
+                                $ source ~/catkin_ws/devel/setup.bash
+                            </div>
+                            The launch file should work now. To avoid typing these every time, add the commands to the end of you 
+                            <a target="_blank" href="https://unix.stackexchange.com/questions/129143/what-is-the-purpose-of-bashrc-and-how-does-it-work">.bashrc</a> file (don’t forget to source .bashrc after changing it).
+                            If the turtlebot complains that the setup.sh file does not exist, try to cd to ~/catkin_ws and run
+                            catkin_make, then try again. If it still is not there I would recommend going through the 
+                            <a onclick="window.location='turtleSetup.html'+window.location.search">setup</a> steps again.
+                        </li>
+                        <li>
+                            If the package is one of the
+                            standard ones, run “source ~/burger_ws/devel/setup.sh”. To avoid doing this on every reboot,
+                            add that line to the <a target="_blank" href="https://unix.stackexchange.com/questions/129143/what-is-the-purpose-of-bashrc-and-how-does-it-work">.bashrc</a> file (don’t forget to source .bashrc after changing it). If the
+                            turtlebot complains that the setup.sh file does not exist, try to cd to ~/burger_ws and run
+                            catkin_make, then try again. If it still is not there I would recommend copying the burger_ws
+                            folder from another turtlebot. 
+                        </li>
+                    </ol>
+                    If you have the setup scripts source in your .bashrc but they don't seem to be running, one strange 
+                    problem is if you have the same file source twice in your .bashrc file it causes it not to work. Try removing 
+                    the second instance of the sourced file.
+                </p>
+            </div>
+            <button class="accordion">You open rviz and the laser data and Turtlebot model are missing.</button>
+            <div class="panel">
+                <p>This is likely because you either have not launched turtlebot3_remote or it is launched but pointing to the 
+                wrong master. If you have not launched it, you can do so by typing:</p>
+                <div class="cmd">
+                    $ roslaunch turtlebot3_bringup turtlebot3_remote.launch
+                </div>
+                on your computer. If it is launched, make sure it has the right ROS_MASTER_URI (and that you sourced 
+                <a target="_blank" href="https://unix.stackexchange.com/questions/129143/what-is-the-purpose-of-bashrc-and-how-does-it-work">.bashrc</a>
+                ).
+                <p>It is important to remember that ROS nodes do not necessarily check if they can communicate with the master, and 
+                the turtlebot_remote package may not display any errors.</p>
+            </div>
+
+            <button class="accordion">Turtlebot is beeping.</button>
+            <div class="panel">
+                <p>
+                    Replace/recharge the battery, but don’t recharge the battery while it is plugged into the
+                    turtlebot. Being in this state will also prevent the turtlebot from driving, which is a
+                    feature I believe to be implemented in the OpenCR firmware. This means you will need to power
+                    off the turtlebot completely and turn it back on again before continuing.
+
+                </p>
+            </div>
+
+            <button class="accordion">Can't ssh into the turtlebot/how to ssh</button>
+            <div class="panel">
+                <p>
+                    <ul>
+                        <li>
+                            Make sure you are on the wifi network named “Linksys08906” or
+                            "Linksys08906_5GHz".
+                        </li>
+                        <li>
+                            Try “ssh pi@turtebot1”, replacing the “1” with the number of the turtlebot.
+                        </li>
+                        <li>
+                            If host cannot be resolved: then try typing out the ip address of the turtlebot,
+                            which is written on each turtlebot, ie. “ssh pi@192.168.1.142”. If this still says
+                            host cannot be resolved, then try plugging a monitor and keyboard into the turtlebot
+                            and make sure it is on the “Linksys…” network. Alternatively, make sure you are still on
+                            the Linksys… network.
+                        </li>
+                        <li>
+                                Password is “turtlebot”. To avoid typing the password every time, 
+                                you can generate an <a target="_blank" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">RSA key pair</a> 
+                                and use that.
+                        </li>
+                        <li>
+                            If you can't remember the IP address, you can use the program nmap to search for it by the hostname 
+                            of the device. For example:
+                            <div class="cmd">
+                                $ sudo apt install nmap<br>
+                                $ <span class="tooltip">nmap {hostname of device}<span class="tooltiptext" style="width: 14em; margin-left: -7em;">Ex: nmap turtlebot4</span></span>
+                            </div>
+                        </li>
+                    </ul>
+                </p>
+            </div>
+
+            <button class="accordion">ROS turtlebot-to-workstation connection problems</button>
+            <div class="panel">
+                <p>
+                        Check the turtlebot’s <a target="_blank" href="https://unix.stackexchange.com/questions/129143/what-is-the-purpose-of-bashrc-and-how-does-it-work">.bashrc</a> file (nano ~/.bashrc). The end of the file should look something
+                        like:
+                        <div class="cmd">
+                            source /opt/ros/kinetic/setup.bash <br>
+                            source ~/catkin_ws/devel/setup.bash <br>
+
+                            source ~/burger_ws/devel/setup.bash <br>
+
+
+                            export ROS_MASTER_URI= <span style="color:green">{http://192.168.1.115:11311}</span> <br>
+
+                            export ROS_HOSTNAME= <span style="color:green">{192.168.1.143}</span> <br>
+
+                            export TURTLEBOT3_MODEL=burger
+                        </div>
+                        But replace the ROS_MASTER_URI with the IP address of the computer running roscore and 
+                        replace the ROS_HOSTNAME with the turtlebot’s own ip address (can be checked with ifconfig). <br>
+                        <i>Don’t forget to run “source .bashrc” after changing the .bashrc file.</i>
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Top button -->
+    <div>
+        <button id="topBtn" class="topBtn" onclick="document.body.scrollTop = 0; document.documentElement.scrollTop = 0;">^ Top</button>
+    </div>
+
+
+    <script src="main.js"></script>
+    <script src="accordion.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        Turtlebot3 Simulation
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <div class="dark box">
+            Note:
+            There is a fantastic guide on how to simulate Turtlebots starting on page 297 of 
+            <a target="_blank" href="http://www.pishrobot.com/wp-content/uploads/2018/02/ROS-robot-programming-book-by-turtlebo3-developers-EN.pdf">this</a> 
+            book and much of the information here is taken from there.
+        </div>
+        <div class="dark box">
+            <h3>Simulation</h3>
+            One of the great things about ROS is the ease of simulating robots and how little code must be changed between 
+            simulation and reality. The concept is that since ROS robots work by publishing and subscribing to topics, we 
+            can create a simulated turtlebot which subscribes and publishes to those same topics. In this way, there is often 
+            no need to make any changes to your program between a simulated Turtlebot and a real Turtlebot. In fact, if you 
+            have a Turtlebot on the same ROS network as a simulation, the Turtlebot will mirror the movements of the simulated 
+            Turtlebot. There are two ways of running simulations in ROS, either using RViz, which can do simple simulations, 
+            or <span class="tooltip">Gazebo<span class="tooltiptext">
+                Fun fact: also the official simulator for the DARPA robotics challenge
+            </span></span>, 
+            the primary simulation program for ROS capable of simulating complex environments. 
+        </div>
+        <div class="dark box">
+            <h3>Using RViz</h3>
+            You can do some simulation of a Turtlebot using just the RViz visualization program and a fake Turtlebot 3 node, 
+            which publishes and subscribes to the same topics as a real Turtlebot. To do this, the setup is similar to a 
+            real Turtlebot. First, launch roscore:
+            <div class="cmd">
+                $ roscore
+            </div>
+            <button class="accordion">Common Problems:</button>
+            <div class="panel">
+            <p>If you get a complaint about "ROS_MASTER_URI [...] host is not set to this machine" or something similar, it means 
+            that the environment variable which keeps track of the ROS master is pointing to a different IP address. To change 
+            this, first kill roscore by typing CTRL+C in the terminal, then edit your .bashrc file by typing:</p>
+            <div class="cmd">
+                $ nano ~/.bashrc
+            </div>
+            Find the line that says "export ROS_MASTER_URI=..." and change the IP address (the string of numbers after the 
+            "http://" and before the ":11311") so that it matches your IP address, which can be found either by opening a 
+            new terminal and typing: 
+            <div class="cmd">
+                $ ifconfig
+            </div>
+            or by reading off the value of your ROS_HOSTNAME environment variable, likely right below your 
+            ROS_MASTER_URI line in your .bashrc file. After you have updated the ROS_MASTER_URI, exit and save your .bashrc 
+            file, then source it and restart roscore:
+            <div class="cmd">
+                $ source ~/.bashrc<br>
+                $ roscore
+            </div> 
+            <p>If this still does not work, I recommend trying the <a href="turtleTroubleshooting.html">Troubleshooting</a> page.</p>
+            </div>
+
+            Next, you will need to start the fake Turtlebot node:
+            <div class="cmd">
+                $ roslaunch turtlebot3_fake turtlebot3_fake.launch
+            </div>
+            <p>If everything worked, RViz should open and you should see a fake Turtlebot sitting in the middle of the seen.</p>
+            <div style="text-align: center">
+            <img style="max-width: 100%" src="images/rviz.png" alt="Picture of RViz">
+            </div>
+            <button class="accordion">Common Problems:</button>
+            <div class="panel">
+                <p>The most likely errors here are either that you did not set the TURTLEBOT3_MODEL environment variable or 
+                    that you did not install the simulation packages. To set the environment variable, run:
+                    <div class="cmd">
+                        $ export TURTLEBOT3_MODEL=burger
+                    </div>
+                    And try running the turtlebot3_fake node again. If this still does not work, you can try installing the 
+                    simulation packages:
+                    <div class="cmd">
+                        $ cd ~/catkin_ws/src/<br>
+                        $ git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git<br>
+                        $ cd ~/catkin_ws && catkin_make<br>
+                        $ source .bashrc
+                    </div>
+                    Try running the turtlebot3_fake node again, and if it still does not work try checking out the 
+                    <a href="turtleTroubleshooting.html">Troubleshooting</a> page for common problems.
+                </p>
+            </div>
+            <p>
+                Now you can launch standard ROS nodes such as keyboard telemetry:
+                <div class="cmd">
+                    $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+                </div>
+                This is a rather basic simulation, as it lacks an interesting environment and things like laser scan 
+                data, but can be useful for testing out simple programs. For a more capable simulation program, use Gazebo.
+            </p>
+        </div>
+        <div class="dark box">
+            <h3>Using Gazebo</h3>
+            Gazebo provides a full physics and sensor simulation environment for ROS. To launch a simple Turtlebot3 simulation 
+            run:
+            <div class="cmd">
+                $ roslaunch turtlebot3_gazebo turtlebot3_world.launch
+            </div>
+            <p>You should see a Turtlebot3 sitting in an obstacle course shaped like the Turtlebot logo.</p>
+            <div style="text-align: center">
+                <img style="max-width: 100%" src="images/gazebo1.png" alt="Picture of a Turtlebot3 in Gazebo">
+            </div>
+            <button class="accordion">Common Problems:</button>
+            <div class="panel">
+                <p>The Gazebo environment should be mostly self-sufficient, but there can be issues if you did not se the 
+                TURTLEBOT3_MODEL environment variable and you should have ROS_MASTER_URI pointing at your local computer.
+                To set the TURTLEBOT3_MODEL environment variable run:
+                <div class="cmd">
+                    $ export TURTLEBOT3_MODEL=burger
+                </div>
+                To change the ROS_MASTER_URI, follow these instructions:
+                First, kill Gazebo by <span class="tooltip">hitting CTRL+C <span class="tooltiptext">Hitting is more dramatic than typing</span></span> 
+                in the terminal, then edit your .bashrc file by typing:</p>
+                <div class="cmd">
+                    $ nano ~/.bashrc
+                </div>
+                Find the line that says "export ROS_MASTER_URI=..." and change the IP address (the string of numbers after the 
+                "http://" and before the ":11311") so that it matches your IP address, which can be found either by opening a 
+                new terminal and typing: 
+                <div class="cmd">
+                    $ ifconfig
+                </div>
+                or by reading off the value of your ROS_HOSTNAME environment variable, likely right below your 
+                ROS_MASTER_URI line in your .bashrc file. After you have updated the ROS_MASTER_URI, exit and save your .bashrc 
+                file, then source it and re-start Gazebo:
+                <div class="cmd">
+                    $ source ~/.bashrc<br>
+                    $ roslaunch turtlebot3_gazebo turtlebot3_world.launch
+                </div>
+                </p>
+            </div>
+
+            <p>
+                Now, you can just about follow the instructions on the <a href="turtleQuickStart.html">Quickstart</a> 
+                page, except roscore and the packages on the Turtlebot have already been launched for you. For example, 
+                to get the standard RViz output run:
+                <div class="cmd">
+                    $ roslaunch turtlebot3_bringup turtlebot3_remote.launch<br>
+                    $ rosrun rviz rviz -d `rospack find turtlebot3_description`/rviz/model.rviz
+                </div>
+                To drive the simulated Turtlebot around, type:
+                <div class="cmd">
+                    $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+                </div>
+                To have the Turtlebot drive randomly and avoid obstacles, try: (be sure to stop the Teleop node first)
+                <div class="cmd">
+                    $ roslaunch turtlebot3_gazebo turtlebot3_simulation.launch
+                </div>
+                As you can see, these are exactly the same as what you would do with a real Turtlebot (the last command is new, 
+                but runs on the Turtlebot as well). In fact, most things you do with the Turtlebot can be done in the 
+                simulation as well, such as SLAM, navigation, etc. To demonstrate how powerful this is, say you had a Turtlebot 
+                running with a Jetson instead of a Pi and you wanted to simulate that, or you wanted to see how quickly something 
+                ran on a Pi as compared to a desktop. Thanks to the pub/sub nature of ROS, you can simply have those devices 
+                point to your workstation as the ROS master node and then run whatever you want to on those devices, since 
+                as far as ROS is concerned there is no difference between the simulated Turtlebot and the real Turtlebot, and it 
+                does not matter where the device running a ROS node is physically, or virtually, located so long as it is on the 
+                same network. Simulating different sensors is a bit more difficult but there are ways to add custom sensors to a 
+                Gazebo model. One shortcut is to use a robot model that already has the sensor you want to simulate. For example, 
+                if you wanted to simulate a depth camera you could use the Turtlebot3 waffle instead of the burger variant 
+                because the waffle comes with a depth camera. 
+                
+                <p>
+                    You can also change the environment the Turtlebot starts in by launching a different launch file. 
+                    Some of the different environments that come stock are a house:
+                    <div class="cmd">
+                        $ roslaunch turtlebot3_gazebo turtlebot3_house.launch
+                    </div>
+                    Several variants of a <span class="tooltip">box<span class="tooltiptext">
+                        These are actually for a reinforcement learning 
+                        <a target="_blank" href="http://emanual.robotis.com/docs/en/platform/turtlebot3/machine_learning/#machine-learning">example</a>
+                    </span></span>:
+                    <div class="cmd">
+                        $ roslaunch turtlebot3_gazebo turtlebot3_stage_1.launch
+                    </div>
+                    <div class="cmd">
+                        $ roslaunch turtlebot3_gazebo turtlebot3_stage_2.launch
+                    </div>
+                    <div class="cmd">
+                        $ roslaunch turtlebot3_gazebo turtlebot3_stage_3.launch
+                    </div>
+                    <div class="cmd">
+                        $ roslaunch turtlebot3_gazebo turtlebot3_stage_4.launch
+                    </div>
+                    And a mini road course:
+                    <div class="cmd">
+                        $ roslaunch turtlebot3_gazebo turtlebot3_autorace.launch
+                    </div> 
+                </p>
+            </p>
+        </div>
+    </section>
+
+    <script src="accordion.js"></script>
+</body>
+
+</html>

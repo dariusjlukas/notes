@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        Jetson Nano Useful Info
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <div class="dark box">
+            <h4>Specs (summarized from <a target="_blank" href="https://developer.nvidia.com/embedded/jetson-nano-developer-kit">here</a>):</h4>
+            <ul>
+                <li>
+                    GPU: 128-core Maxwell
+                </li>
+                <li>
+                    CPU: Quad-core ARM A57 @ 1.43 GHz
+                </li>
+                <li>
+                    Memory: 4 GB 64-bit LPDDR4 25.6 GB/s 
+                </li>
+                <li>
+                    Internet Connectivity: Gigabit Ethernet, M.2 Key E slot for wireless <span class="tooltip">NIC<span class="tooltiptext">Network Interface Card</span></span>
+                </li>
+                <li>
+                    Display: HDMI 2.0 and eDP 1.4
+                </li>
+                <li>
+                    USB: 4xUSB 3.0, USB Micro-B (for power, not recommended)
+                </li>
+                <li>
+                    Other Interfaces: <span class="tooltip">GPIO<span class="tooltiptext">General Purpose Input Output; the large bank of header pins on the side of the developer board.</span></span>, 
+                    <span class="tooltip">I2C<span class="tooltiptext">Inter-Integrated Circuit. A popular 2-wire bus for communicating between embedded devices. Find out more <a target="_blank" href="https://i2c.info/">here</a>.</span></span>, 
+                    <span class="tooltip">I2S<span class="tooltiptext">Inter-IC Sound. A common protocol for transmitting sound between embedded systems. Find out more <a target="_blank" href="https://www.sparkfun.com/datasheets/BreakoutBoards/I2SBUS.pdf">here</a>.</span></span>, 
+                    <span class="tooltip">SPI<span class="tooltiptext">Serial Peripheral Interface. Similar to I2C but more complex and considerably faster. Find out more <a target="_blank" href="https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all">here</a>.</span></span>, 
+                    <span class="tooltip">UART<span class="tooltiptext">Universal Asynchronous Receiver-Transmitter. A piece of hardware used to transmit and receive serial data. Find out more <a target="_blank" href="http://www.circuitbasics.com/basics-uart-communication/">here</a>.</span></span>
+                </li>
+                <li>
+                    Dimensions: 100mm x 80mm x 29mm
+                </li>
+            </ul>
+        </div>
+        <div class="dark box">
+            <h4>Useful Commands:</h4>
+            <ul>
+                <li>
+                    Display performance metrics:
+                    <div class="cmd">
+                        $ sudo jtop
+                    </div>
+                    To install jtop, run:
+                    <div class="cmd">
+                        $ sudo apt install python-pip<br>
+                        $ sudo -H pip install jetson-stats
+                    </div>
+                </li>
+                <li>
+                    Display the power mode (learn more <a target="_blank" href="https://www.jetsonhacks.com/2019/04/10/jetson-nano-use-more-power/">here</a>):
+                    <div class="cmd">
+                        $ sudo nvpmodel -q
+                    </div>
+                </li>
+                <li>
+                    Set the power mode to 5W (learn more <a target="_blank" href="https://www.jetsonhacks.com/2019/04/10/jetson-nano-use-more-power/">here</a>):
+                    <div class="cmd">
+                        $ sudo nvpmodel -m1
+                    </div>
+                </li>
+                <li>
+                    Set the power mode to max (learn more <a target="_blank" href="https://www.jetsonhacks.com/2019/04/10/jetson-nano-use-more-power/">here</a>):
+                    <div class="cmd">
+                        $ sudo nvpmodel -m0
+                    </div>
+                </li>
+                <li>
+                    Max out the clock speeds for maximum performance, without overclocking (learn more <a target="_blank" href="https://www.jetsonhacks.com/2019/04/10/jetson-nano-use-more-power/">here</a>):
+                    <div class="cmd">
+                        $ sudo jetson_clocks
+                    </div>
+                </li>
+                <li>
+                    Check the disk (storage) usage:
+                    <div class="cmd">
+                        $ df -h
+                    </div>
+                </li>
+                <li>
+                    Check the memory usage:
+                    <div class="cmd">
+                        $ free -m -h
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="dark box">
+            <h4>Disabling the Desktop:</h4>
+            <p>
+                If you want to stop the Jetson Nano from automatically booting into a desktop environnement to 
+                save resources, you can follow the steps found <a target="_blank" href="https://devtalk.nvidia.com/default/topic/1050739/jetson-nano/how-to-boot-jetson-nano-in-text-mode-/">here</a> 
+                and possibly also <a target="_blank" href="https://askubuntu.com/questions/771837/how-to-create-ubuntu-server-16-04-autologin">here</a> or try the steps bellow: <br>
+                Note: before continuing, you will need to be connected to the Jetson Nano directly (not by ssh) because 
+                these steps are likely to disable ssh functionality temporarily. 
+                <ol>
+                    <li>
+                        Log into the Jetson Nano and change the <span class="tooltip">systemctl<span class="tooltiptext"><a target="_blank" href="https://www.linode.com/docs/quick-answers/linux-essentials/introduction-to-systemctl/">guide</a></span></span> default to not open a desktop by typing:
+                        <div class="cmd">
+                            $ sudo systemctl set-default multi-user.target
+                        </div>
+                    </li>
+                    <li>
+                        Reboot the system. You should be dropped into the <span class="tooltip">tty1<span class="tooltiptext"><a target="_blank" href="https://en.wikipedia.org/wiki/Computer_terminal#Text_terminals">Wikipedia article</a></span></span> 
+                        console. This is good, it means you have sucessfully disabled starting the desktop by default. If you would like to start a GUI, type either:
+                        <div class="cmd">
+                            $ sudo systemctl start gdm3.service
+                        </div>
+                        or
+                        <div class="cmd">
+                            $ startx
+                        </div>
+                    </li>
+                    <li>
+                        At this point you should try rebooting the jetson nano and SSHing in before logging in locally. If you run into problems, 
+                        try logging into the Jetson Nano locally, and see if you can SSH in. If you can only SSH when logged in locally, you can 
+                        follow the remaining steps to set up auto-login on tty1 (taken from <a target="_blank" href="https://askubuntu.com/questions/771837/how-to-create-ubuntu-server-16-04-autologin">here</a>).
+                    </li>
+                    <li>
+                        Logged into the Jetson Nano locally, run:
+                        <div class="cmd">
+                            $ sudo systemctl edit getty@tty1
+                        </div>
+                        And add these lines:
+                        <div class="cmd">
+                            [Service]<br>
+                            ExecStart=<br>
+                            ExecStart=-/sbin/agetty -a <span class="tooltip">{USERNAME}<span class="tooltiptext" style="width: 10em; margin-left: -5em;">
+                                Your username is the string to the left of the "@" symbol in the terminal; ie. ottelab is the username in ottelab@ottelab-Jetson1:$</span></span>
+                                 --noclear %I $TERM<br>
+                        </div>
+                    </li>
+                    <li>
+                        Reboot the Jetson Nano and you should automatically log into tty1 and be able to SSH in.
+                    </li>
+                </ol>
+            </p>
+        </div>
+        
+        <div class="dark box">
+            <h4>Enabling the desktop:</h4>
+            If you would like to start the desktop for this session only, type:
+            <div class="cmd">
+                $ sudo systemctl start gdm3.service 
+            </div>
+            If you want the system to start the desktop at boot by default, type:
+            <div class="cmd">
+                $ sudo systemctl set-default graphical.target
+            </div>
+        </div>
+        <div class="dark box">
+            <h4>Problems with SSH and pining the Jetson Nano</h4>
+            Try installing <span class="tooltip">ntp<span class="tooltiptext">Network Time Protocol</span></span> by:
+            <div class="cmd">
+                $ sudo apt install ntp
+            </div>
+            Then, check that the time is correct by typing:
+            <div class="cmd">
+                $ ntptime
+            </div>
+            It should come back with the correct date-time and return code 0 (OK)
+        </div>
+        <div class="dark box">
+            <h4>You disabled the GUI and everything is awesome except you want to open more than one terminal</h4>
+            tmux is the program you seek. Learn more <a target="_blank" href="https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340">here</a>.
+        </div>
+        <div class="dark box">
+            <h4>Other Resources:</h4>
+            <a target="_blank" href="https://developer.download.nvidia.com/assets/embedded/secure/jetson/Nano/docs/NVIDIA_Jetson_Nano_Developer_Kit_User_Guide.pdf?DH3Xaj1pJJqjzLWcXH05yYSUZICygfxb3PkRrYooMiPYip0fyQtAWymROUYjR396ff1xYRUee1kKzR-jR-XPGo5GMBtrlVuSPo27fTmgOAm2N7VWP1Hop_NOfnlByJOoTOlrlgChVS7mzKECWI8oNghRvRp1ILJEtRgJPUUad0htLusWLWBXld9cK35kKAZtK-ZnhyhP">Developer Kit User Guide</a><br>
+            <a target="_blank" href="https://developer.nvidia.com/embedded/downloads#?search=Jetson%20Nano">Misc. Nvidia Downloads</a><br>
+            <a target="_blank" href="https://elinux.org/Jetson_Nano">Wiki</a>
+        </div>
+        <div class="dark box">
+            <h4>Known Issues:</h4>
+            <ul>
+                <li>Graphics examples segfault when run, not sure why</li>
+                <li>In jtop, PMIC reads as 100 degrees celsius. I guarantee the power management integrated circuit is not at 100C all the time.</li>
+            </ul>
+        </div>
+        <div class="dark box">
+            <h4>Misc:</h4>
+            <ul>
+                <li>After several stress tests, it does not look like external cooling will be necessary. Highest internal temps seen were 
+                    around 70C.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    
+</body>
+
+</html>

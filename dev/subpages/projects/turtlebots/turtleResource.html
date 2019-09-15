@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link id="stylesheet" rel="stylesheet" type="text/css" href="main-light.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <title>Darius Notes</title>
+</head>
+
+<body onload="readPath()">
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/6.3.3/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#reserved-urls -->
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+
+    <header>
+        Turtlebot Resources
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("nav.html");
+        });
+    </script>
+
+
+
+
+
+    <!-- Content -->
+    <section>
+        <div class="box">
+            <h3>Links:</h3>
+            <a target="_blank" href="http://www.pishrobot.com/wp-content/uploads/2018/02/ROS-robot-programming-book-by-turtlebo3-developers-EN.pdf">Free PDF of a book on ROS and turtlebots</a><br>
+            <a target="_blank" href="http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/#overview">Robotis Turtlebot Documentation</a><br>
+            <a target="_blank" href="https://www.stereolabs.com/blog/ros-and-nvidia-jetson-nano/">Good guide for setting up ROS on the jetson nano</a><br>
+            <a target="_blank" href="https://www.linux.com/what-is-linux">What is Linux?</a><br>
+            <a target="_blank" href="https://www.pcworld.com/article/2918397/how-to-get-started-with-linux-a-beginners-guide.html">Linux getting started article</a><br>
+            <a target="_blank" href="https://www.tldp.org/LDP/tlk/tlk.html">Linux deep dive</a><br>
+            <a target="_blank" href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit#intro">Nvidia's getting started page</a><br>
+            <a target="_blank" href="http://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#raspberry-pi-3-setup">Robotis Turtlebot documentation for setting up a raspberry pi</a><br>
+            <a target="_blank" href="https://mynt-eye-d-sdk.readthedocs.io/en/latest/installation/build_linux.html">Guide to setting up the Mynt Eye camera on Linux</a><br>
+            <a target="_blank" href="https://www.jetsonhacks.com/">Great site for info on the Jetson Nano and other Nvidia Jetson products</a>
+
+        </div>
+        <div class="box">
+            <h4>Components:</h4>
+            <p>Note: These are for a Turtlebot 3 with a Jetson Nano processor swap and a depth camera.</p>
+            <a target="_blank" href="https://docs.google.com/spreadsheets/d/1GpRpuMHw44W2z6bYHY1PmxY7dgq1N8VCIA7wjSwSWkU/edit?usp=sharing">Full Bill of Materials</a><br>
+            <a target="_blank" href="https://developer.nvidia.com/embedded/jetson-nano-developer-kit">Jetson Nano</a><br>
+            <a target="_blank" href="http://www.robotis.us/turtlebot-3/">Turtlebot 3</a><br>
+            <a target="_blank" href="https://www.mynteye.com/pages/mynt-eye-d">Mynt Eye D</a><br>
+        </div>
+
+    </section>
+
+
+
+    <!-- Top button -->
+    <div>
+        <button id="topBtn" class="topBtn" onclick="document.body.scrollTop = 0; document.documentElement.scrollTop = 0;">^ Top</button>
+    </div>
+
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>

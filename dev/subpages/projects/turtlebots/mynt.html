@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        Mynt Eye Stereo Depth Camera
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("nav.html");
+        });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <div style="text-align: center">
+            <img style="width: 50%" src="images/mynt.webp" alt="Image of the Mynt Eye D camera">
+            <img style="width: 50%" src="images/mynteye_surface.png" alt="Diagram of the Mynt Eye D camera">
+        </div>
+        <div class="dark box">
+            The Mynt Eye D stereo depth camera is a medium-range sensor capable of capturing an image
+            of the environment as well as depth information. The depth data can be displayed in a variety of
+            fashions, including as a point cloud, where each pixel has color and position. In that sense, it is
+            like a LIDAR array that also captures color. The Mynt Eye also contains an integrated IMU which is great
+            for doing visual-inertial odometry.
+        </div>
+        <div class="boxContainer">
+            <div class="dark box">
+                <h4>Pros:</h4>
+                <ul>
+                    <li>Captures color and depth</li>
+                    <li>Computed depth data onboard</li>
+                    <li>Can perform stereo visual-intertial odometry rather well</li>
+                    <li>Nice pre-written ROS packages that publish the color, depth, point data, etc.</li>
+                    <li>Works well indoors and outdoors</li>
+                    <li>Works well in a variety of lighting conditions</li>
+                    <li>Works best when the environment contains more organic shapes, as opposed to LIDAR</li>
+                </ul>
+            </div>
+            <div class="dark box">
+                <h4>Cons:</h4>
+                <ul>
+                    <li>Has issues with mono-color walls if they are more than ~2m away (based on preliminary testing)
+                    </li>
+                    <li>While the cameras can operate at up to 60fps, it cannot get the full point cloud at that
+                        rate, and a more reasonable expectation would be 15-30fps
+                    </li>
+                    <li>Requires USB 3.0 for most applications and uses that bandwidth</li>
+                    <li>Processing point cloud data (or at least displaying it) is computationally intensive</li>
+                    <li>Limited range and precision compared to high-end LIDAR systems</li>
+                    <li>The SDK it uses requires that the host be running a 64-bit OS, which limits which single
+                        board computers it can be used with
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="boxContainer">
+            <div class="dark box">
+                <h4>Example depth data:</h4>
+
+                <div class="box">
+                    <img style="width:100%" src="images/MyntDepth1.png" alt="Outdoor Mynt Eye depth image">
+                </div>
+
+                <div class="box">
+                    <img style="width:100%" src="images/MyntDepth2.png" alt="Outdoor Mynt Eye depth image">
+                </div>
+
+                <div class="box">
+                    <img style="width:100%" src="images/MyntDepth3.png" alt="Outdoor Mynt Eye depth image">
+                </div>
+
+                <div class="box">
+                    <img style="width:100%" src="images/MyntDepth4.png" alt="Outdoor Mynt Eye depth image">
+                </div>
+            </div>
+            <div class="dark box">
+                <h4>Example visual-inertial odometry data using VINS-Fusion in an outdoor environment:</h4>
+                
+                <div class="box">
+                    <img style="width:100%" src="images/MyntOdom1.png" alt="Outdoor Mynt Eye odometry data">
+                </div>
+
+                <div class="box">
+                    <img style="width:100%" src="images/MyntOdom2.png" alt="Outdoor Mynt Eye odometry data">
+                </div>
+
+                <div class="box">
+                    <img style="width:100%" src="images/MyntOdom3.png" alt="Outdoor Mynt Eye odometry data">
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+   
+</body>
+
+</html>

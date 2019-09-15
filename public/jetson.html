@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        Nvidia Jetson Nano
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <div style="text-align: center">
+            <img src="images/Jetson_Nano_Family.png" alt="picture of a jetson nano and carrier board">
+        </div>
+        <div class="dark box">
+            <p>
+                The Jetson Nano is a <span class="tooltip">SOM<span class="tooltiptext">System On Module</span></span> 
+                featuring a quad-core ARM Cortex A57 processor clocked at 1.43 GHz, 4GB of LPDDR4 RAM, and a 128-core 
+                Maxwell GPU. The Jetson Nano itself is the <span class="tooltip">SO-DIMM<span class="tooltiptext">Small Outline Dual In-line Memory Module; the form factor of the Jetson Nano</span></span> 
+                card on the right. The Jetson Nano needs some kind of carrier board to operate, and we use the 
+                Jetson Nano developer kit, pictured on the left. The <span class="tooltip">developer kit<span class="tooltiptext">
+                    The developer kit includes both the carrier board and the Jetson Nano module.
+                </span></span>  carrier board, pictured on the left with a Jetson Nano attached, adds 4 USB 3.0 ports, HDMI and Display Port output, 
+                a <span class="tooltip">MIPI<span class="tooltiptext">Mobile Industry Processor Interface; the actual interface is CSI, or Camera Serial Interface.</span></span> 
+                camera connector, power connectors, gigabit ethernet, a 
+                <span class="tooltip">TTL<span class="tooltiptext">Transistor-Transistor Logic level. Here referring to a type of serial interface. Works like 
+                    <a target="_blank" href="https://learn.sparkfun.com/tutorials/serial-communication/wiring-and-hardware">this.</a> 
+                </span></span> 
+                serial console port, and an M.2 Key E slot for adding a Wifi card. 
+            </p>
+        </div>
+    </section>
+
+    
+</body>
+
+</html>

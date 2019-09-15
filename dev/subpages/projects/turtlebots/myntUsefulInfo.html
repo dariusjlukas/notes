@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        OtteLab Turtlebot3 Documentation
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <div class="dark box">
+            <h3>Info:</h3> 
+                Model: Mynt Eye D1000-120FOV <br>
+                Resolution: Stereo: 2560 x 720 @ 60 FPS | Depth: 1280 x 720 @ 60 FPS <br>
+                FOV: D:121° H:105° V:58° <br>
+                Range: 0.3 ~ 10 meters (based on testing, much shorted, closer to 6 meters) <br>
+                Power: 3.5W @ 5V DC from USB
+        </div>
+    </section>
+
+    
+</body>
+
+</html>

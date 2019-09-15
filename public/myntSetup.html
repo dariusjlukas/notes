@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        Mynt Eye Setup
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        
+        <div class="dark box">
+            <h3>Overview:</h3>
+            The turtlebot workstation should be set up with the SDK for the cameras, but the installation 
+            instructions can be found
+            <a target="_blank" href="https://mynt-eye-d-sdk.readthedocs.io/en/latest/installation/build_linux.html">here</a>.
+            
+            <br>
+            I had installation issues on Ubuntu 18.04 and Ubuntu 19.04 but no problems with Ubuntu 16.04 with ROS 
+            Kinetic installed. I do recommend installing ROS before going through the Mynt Eye setup. Also, I tried
+             but was unsuccessful setting up a VM of ubuntu 16.04 with the Mynt Eye SDK and ended up doing a fresh install of 
+             16.04 on my laptop. The only visual odometry examples I was able to get running were the VINS-mono and 
+             VINS-fusion packages. Instructions to do so can be found
+             <a target="_blank" href="https://mynt-eye-d-sdk.readthedocs.io/en/latest/slam/vins_fusion.html">here</a>.
+            And for the record, you most certainly do not need 16GB of ram to run VINS-fusion, more like 8.
+        </div>
+    </section>
+
+    
+</body>
+
+</html>

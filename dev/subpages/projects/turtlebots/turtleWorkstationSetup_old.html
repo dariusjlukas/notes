@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        Turtlebot3 Workstation Setup
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <div style="text-align: center">
+            <img style="min-width:30%; max-width: 80%" src="images/ROSnetwork.jpeg" alt="Picture of a hypothetical ROS network">
+        </div>
+
+        <div class="dark box">
+            One of the great things about ROS is that since most tasks are done over the network through publisher/subscriber 
+            communication (see chapter 4 of <a target="_blank" href="http://www.pishrobot.com/wp-content/uploads/2018/02/ROS-robot-programming-book-by-turtlebo3-developers-EN.pdf">this</a> book to learn more) 
+            many tasks can run on any system in the network. For instance, in the turtlebot examples almost all of the ROS nodes are running on an outside 
+            computer instead of directly on the turtlebot. This provides convenience, ease of use, ease of debugging, and the ability to leverage immense 
+            amounts of processing power on your ROS-enabled robot. It should be noted that, unlike in the image above, the ROS network is not a cloud, and 
+            there is a <span class="tooltip">single master node<span class="tooltiptext">For ROS 1. This is not the case in ROS 2. You are likely using ROS 1.</span></span> in your network and that device manages the ROS network, no magic or wizards involved. 
+            For this to work, you need to have a desktop computer (or any computer really) set up 
+            to work with the turtlebot. The basic criteria to do this are as follows:
+            <ol>
+                <li><span class="tooltip">Set up a computer with Ubuntu Linux 16.04<span class="tooltiptext" style="width: 24em; margin-left: -12em">You can run other Linux 
+                    distributions, and in fact you will likely need to if you are not using ROS Kinetic. There is also a way to use Windows with ROS. I highly 
+                    recommend a local installation of Ubuntu 16.04 if you are using ROS Kinetic as it will be the easiest to set up and likely the 
+                    easiest to use. See the <a href="resource.html">resources</a> page for links to linux guides.
+                </span></span></li>
+                <li>Install ROS <span class="tooltip">Kinetic<span class="tooltiptext">At the time of writing this, 
+                    Kinetic gives the most compatibility with the turtlebots</span></span> on that computer</li>
+                <li>Install Turtlebot-specific packages on that computer</li>
+                <li>Make sure you are on the same network as the turtlebot</li>
+                <li>Run the turtlebot from your computer</li>
+            </ol>
+        </div>
+        <div class="dark box">
+            A comprehensive guide for setting up a workstation to work with the Turtlebot can be found 
+            <a target="_blank" href="http://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/">here</a>. What follows is 
+            a summary of that.
+            <br><br>
+            You can use the following script to install ROS Kinetic with relative ease:
+            <div class="cmd">
+                $ sudo apt update<br>
+                $ sudo apt upgrade<br>
+                $ wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_kinetic.sh && chmod 755 ./install_ros_kinetic.sh && bash ./install_ros_kinetic.sh<br>
+            </div>
+            If that does not work, you can follow the manual installation steps found <a target="_blank" href="http://wiki.ros.org/kinetic/Installation">here</a>. <br>
+            <br>
+            Next, install the turtlebot specific ROS packages:
+            <div class="cmd">
+                $ sudo apt-get install ros-kinetic-joy ros-kinetic-teleop-twist-joy ros-kinetic-teleop-twist-keyboard ros-kinetic-laser-proc ros-kinetic-rgbd-launch ros-kinetic-depthimage-to-laserscan ros-kinetic-rosserial-arduino ros-kinetic-rosserial-python ros-kinetic-rosserial-server ros-kinetic-rosserial-client ros-kinetic-rosserial-msgs ros-kinetic-amcl ros-kinetic-map-server ros-kinetic-move-base ros-kinetic-urdf ros-kinetic-xacro ros-kinetic-compressed-image-transport ros-kinetic-rqt-image-view ros-kinetic-gmapping ros-kinetic-navigation ros-kinetic-interactive-markers<br>
+                $ cd ~/catkin_ws/src/<br>
+                $ git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git<br>
+                $ git clone https://github.com/ROBOTIS-GIT/turtlebot3.git<br>
+                $ git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git<br>
+                $ cd ~/catkin_ws && catkin_make<br>
+            </div>
+            Now, the network needs to be set up. The basic topology of a ROS network consists of a single master 
+            node and some number of other nodes on the network. The term node here refers to individual ROS 
+            programs, and many nodes can run on a single physical machine or these nodes can be spread out across 
+            many machines. The important point is that ROS needs a network and a master node to operate, even if 
+            there is only one physical machine on that network. See chapter 4 of <a target="_blank" href="http://www.pishrobot.com/wp-content/uploads/2018/02/ROS-robot-programming-book-by-turtlebo3-developers-EN.pdf">this</a> 
+            book to learn more. In order for this to work, each physical machine 
+            needs to know the <span class="tooltip">IP-address<span style="width: 12em; margin-left: -6em" class="tooltiptext">Internet Protocol Address; A series of numbers like: 192.168.10.123 that identifies a computer on a network.</span></span>
+            of itself and the IP-address of the ROS master node. It does not need to know the IP-addresses of any 
+            other computers on the ROS network, if there are any, because the master node will facilitate 
+            communication with those devices. To do this, ROS uses <span class="tooltip">environment variables<span class="tooltiptext">
+                Variables shared accross the system; learn more <a target="_blank" href="https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps">here</a>
+            </span></span>
+            called ROS_MASTER_URI and ROS_HOSTNAME. In linux, the syntax to set an environment variable is 
+            <div class="cmd">
+                <span style="color: green">Do NOT type this into your terminal!</span><br>
+                $ export variable_name=value
+            </div>
+            but, if you did this manually, you would need to type it every time you opened a new terminal. To avoid 
+            doing that, we will add the export commands to the end of the <span class="tooltip">.bashrc<span class="tooltiptext">
+                A shell script which is run each time you open a new terminal; learn more <a target="_blank" href="https://unix.stackexchange.com/questions/129143/what-is-the-purpose-of-bashrc-and-how-does-it-work">here</a>
+            </span></span>
+            file so that they are run automatically. When setting up your workstation, both the master and 
+            hostname point to the same address, assuming you are running the ROS master from your workstation. 
+            To check your machine's IP address, run:
+            <div class="cmd">
+                $ ifconfig
+            </div>
+            There should be a line that starts with "inet addr:" followed by a number 192.168.10.XXX . Note that 
+            your could have multiple IP-addresses. If your IP-address does not start with "192.168.10" you are 
+            probably not on the lab's WiFi, and you will need to get on it before continuing. It should be called 
+            Linksys08906{something} and the password is written on a sticky note on the router. <br>
+            Once you have your IP-address, remember it (here is a convenient place to write it down):
+            <form>
+                <input type="text" value="192.168.10.">
+            </form>
+            Now edit your .bashrc file by typing:
+            <div class="cmd">
+                $ nano ~/.bashrc
+            </div>
+            If there are already export lines for master and hostname, modify them, if not add them, so that there 
+            are three lines in your .bashr file that look like:
+            <div class="cmd">
+                export ROS_MASTER_URI=http://{YOUR_IP_HERE}:11311<br>
+                export ROS_HOSTNAME={YOUR_IP_HERE}<br>
+                <span class="tooltip">export TURTLEBOT3_MODEL=burger<span class="tooltiptext" style="width: 12em; margin-left: -6em">
+                    This line tells ROS that you are using the Turtlebot3 Burger model, and is necessary for running simulations
+                </span></span>
+            </div>
+            After editing your .bashrc file, you need to source it for changes to take effect (or you could close 
+            and re-open all your terminals, but sourcing is faster). You can do this by typing:
+            <div class="cmd">
+                $ source ~/.bashrc
+            </div>
+            <br>
+            At this point, your computer should be set up to work with the turtlebots. Assuming you have at least 
+            one turtlebot set up as well, you can head to the <a href="turtleQuickStart.html">Quickstart</a>
+            page to test your setup. If you have problems, please consult the <a href="turtleTroubleshooting.html">Troubleshooting</a> 
+            page or use the questions box on the <a href="resource.html">Resources</a> page. Getting the workstation 
+            setup right was one of the most frustrating parts when I first tried it, so hopefully this helped.
+        </div>
+    </section>
+
+    
+</body>
+
+</html>

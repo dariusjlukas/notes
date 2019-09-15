@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        Using the Jetson Nano with a Mynt Eye Depth Camera
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <div class="dark box">
+            The Jetson Nano can be used with the Mynt Eye in the same way you would use the Mynt Eye with a computer, 
+            except that based on <span class="tooltip">benchmarks
+            <span class="tooltiptext">Comparison of Phoronix Test Suite results from my laptop (i7-3630QM, Nvidia GT 650M, 15.6 GB DDR3L, 250 GB SSD) and the Jetson Nano. Results ranged from 1.6x faster to 21.5x faster, depending on the task.</span></span> 
+            the Jetson Nano is ~5x slower than an old laptop computer, depending on the task. The Jetson Nano is also
+            limited by its 4GB of RAM, but should be sufficient for use with the turtlebots. If you get to the point 
+            where the Jetson Nano has inadequate processing power, Nvida sells more powerful systems in the <a target="_blank" href="https://developer.nvidia.com/buy-jetson">Jetson 
+            family</a> of products, and there are a variety of options from other manufacturers. 
+        </div>
+        <div class="dark box">
+            See the <a href="jetsonSetup.html#s3">Initial Setup</a> page (step 3) for the Jetson Nano for instructions on 
+            getting the Jetson Nano working with the Mynt Eye.
+        </div>
+    </section>
+
+    
+</body>
+
+</html>

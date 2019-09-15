@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        OtteLab Turtlebot3 Documentation
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <div class="dark box">
+            <h3>Links:</h3>
+            <a target="_blank" href="http://www.pishrobot.com/wp-content/uploads/2018/02/ROS-robot-programming-book-by-turtlebo3-developers-EN.pdf">Free PDF of a book on ROS and turtlebots</a><br>
+            <a target="_blank" href="http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/#overview">Robotis Turtlebot Documentation</a><br>
+            <a target="_blank" href="https://www.stereolabs.com/blog/ros-and-nvidia-jetson-nano/">Good guide for setting up ROS on the jetson nano</a><br>
+            <a target="_blank" href="https://www.linux.com/what-is-linux">What is Linux?</a><br>
+            <a target="_blank" href="https://www.pcworld.com/article/2918397/how-to-get-started-with-linux-a-beginners-guide.html">Linux getting started article</a><br>
+            <a target="_blank" href="https://www.tldp.org/LDP/tlk/tlk.html">Linux deep dive</a><br>
+            <a target="_blank" href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit#intro">Nvidia's getting started page</a><br>
+            <a target="_blank" href="http://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#raspberry-pi-3-setup">Robotis Turtlebot documentation for setting up a raspberry pi</a><br>
+            <a target="_blank" href="https://mynt-eye-d-sdk.readthedocs.io/en/latest/installation/build_linux.html">Guide to setting up the Mynt Eye camera on Linux</a><br>
+            <a target="_blank" href="https://www.jetsonhacks.com/">Great site for info on the Jetson Nano and other Nvidia Jetson products</a>
+
+        </div>
+        <div class="dark box">
+            <h4>Components:</h4>
+            <a target="_blank" href="https://docs.google.com/spreadsheets/d/1GpRpuMHw44W2z6bYHY1PmxY7dgq1N8VCIA7wjSwSWkU/edit?usp=sharing">Full Bill of Materials</a><br>
+            <a target="_blank" href="https://developer.nvidia.com/embedded/jetson-nano-developer-kit">Jetson Nano</a><br>
+            <a target="_blank" href="http://www.robotis.us/turtlebot-3/">Turtlebot 3</a><br>
+            <a target="_blank" href="https://www.mynteye.com/pages/mynt-eye-d">Mynt Eye D</a><br>
+        </div>
+
+        <div class="dark box">
+            <h4>Questions:</h4>
+            My email is dlukas@umd.edu, or you could use the form. As of right now, it is the same thing.
+
+            <div style="margin: 1em; padding: 1em; border-style:solid; border-width: .2em;">
+            <form action="mailto:dlukas@umd.edu">
+                Rate your level of frustration: <br><br>
+                <label class="container">One
+                <input type="radio" name="frustrated" value="1">
+                <span class="checkmark"></span>
+                </label>
+                
+                <label class="container">Two
+                <input type="radio" name="frustrated" value="2">
+                <span class="checkmark"></span>
+                </label>
+                
+                <label class="container">Three
+                <input type="radio" name="frustrated" value="3">
+                <span class="checkmark"></span>
+                </label>
+                
+                <label class="container">Ten
+                <input type="radio" name="frustrated" value="10">
+                <span class="checkmark"></span>
+                </label> 
+
+                <label class="container">11
+                <input type="radio" name="frustrated" value="11">
+                <span class="checkmark"></span>
+                </label>
+                
+                <br>
+                What seems to be the problem?
+                <textarea class="formText" name="Description" id="" cols="30" rows="10"></textarea>
+
+                <br><br>
+                <input type="submit" value="Submit">
+            </form>
+            </div>
+        </div>
+    </section>
+
+    
+</body>
+
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        Jetson Nano Initial Setup
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <div class="boxContainer">
+            <div class="dark box">
+                <h4>A Note About Powering the Jetson Nano:</h4>
+                In order to power the Jetson Nano from the barrel jack instead of from the micro USB port, you 
+                must add a jumper to J48. Also, be sure to use a power supply that outputs 5v and is rated for 
+                at least 4A.
+            </div>
+            <div class="dark box">
+                <h4>Hardware Setup:</h4>
+                Assuming you will be powering the Jetson Nano from the barrel jack:
+                <ol>
+                    <li>Put a jumper on J48, there should be ~99 jumper caps left in the lab</li>
+                    <li>Get a 5V 4A capable power adapter with a 5.5x2.1mm plug, NOT a 12v supply</li>
+                    <li>Plug in monitor, mouse, keyboard, and SD card (after flashing it; the SD card plugs in 
+                        on the underside of the Jetson Nano module)</li>
+                    <li>Plug in Jetson Nano</li>
+                </ol>
+                If you want WiFi capabilties, you must add a WiFi NIC to the M.2 Key E slot on the Jetson Nano,
+                located under the module itself. To do this, remove the Jetson Nano module by unscrewing the two 
+                screws holding it in place and pulling the side mounting arms out. Once removed, take out the screw 
+                in the M.2 Key E slot, insert the WiFi module, and secure it with the mounting screw you just removed. 
+                At this point you should also plug in the WiFi module's antennas (likely not included with the module 
+                itself) to the ports labeled "ANT" or something similar. You can then reinsert the Jetson Nano module, 
+                screw its fasteners back in, and you should be good to go.
+                
+            </div>
+            <div class="dark box">
+                <h4>Software Steps: </h4>
+                <ol>
+                    <li>
+                        Put and OS on the Jetson Nano
+                    </li>
+                    <li>
+                        Install ROS (Melodic)
+                    </li>
+                    <li>
+                        Install the Mynt Eye D SDK (if you are using the Mynt Eye depth camera)
+                    </li>
+                </ol>
+            </div>
+            <div class="dark box">
+                <h4>Putting an OS on the Jetson Nano:</h4>
+                <p>
+                    You may want to read through Nvidia's brief <a target="_blank" href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit#intro">intro</a>
+                    on setting up the Jetson Nano, which includes 
+                    flashing the SD card. The jetson nano uses a modified version of ubuntu 18.04 which comes 
+                    pre-installed with the JetPack SDK and other jetson-specific software.
+                    <br> <br>
+                    TL;DR: jump <a target="_blank" href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit#write">here</a>
+                        to flash an SD card with the JetPack image. When you are finished, insert the SD card into the 
+                        Jetson Nano (located on the underside of the module itself) and boot up the Jetson Nano, following 
+                        the first-time setup instructions. 
+                </p>
+            </div>
+
+            <div class="dark box">
+                <h4>Installing ROS on the Jetson Nano:</h4>
+                <p>
+                    Note: Before continuing with this step, make sure the Jetson Nano has an internet connection. <br>
+                    There is a good guide for setting up the Jetson Nano with ROS <a target="_blank" href="https://www.stereolabs.com/blog/ros-and-nvidia-jetson-nano/">here</a>.
+                    <br><br>
+                    Alternatively, here are the commands you can use:
+                    <div class="cmd">
+                        $ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+                    </div>
+                    <div class="cmd">
+                        $ sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+                    </div>
+                    <div class="cmd">
+                        $ sudo apt update
+                    </div>
+                    <div class="cmd">
+                        $ sudo apt upgrade
+                    </div>
+                    <div class="cmd">
+                        $ sudo apt install ros-melodic-desktop
+                    </div>
+                    <div class="cmd">
+                        $ sudo rosdep init
+                    </div>
+                    <div class="cmd">
+                        $ rosdep update
+                    </div>
+                    <div class="cmd">
+                        $ echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+                    </div>
+                    <div class="cmd">
+                        $ source ~/.bashrc
+                    </div>
+                    <div class="cmd">
+                        $ sudo apt-get install cmake python-catkin-pkg python-empy python-nose python-setuptools libgtest-dev python-rosinstall python-rosinstall-generator python-wstool build-essential git
+                    </div>
+                    <div class="cmd">
+                        $ mkdir -p ~/catkin_ws/src
+                    </div>
+                    <div class="cmd">
+                        $ cd ~/catkin_ws/
+                    </div>
+                    <div class="cmd">
+                        $ catkin_make
+                    </div>
+                    <div class="cmd">
+                        $ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+                    </div>
+                    <div class="cmd">
+                        $ source ~/.bashrc
+                    </div>
+                    Turtlebot-specific commands (coppied from <a target="_blank" href="http://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#raspberry-pi-3-setup">here</a>):
+                    <div class="cmd">
+                        $ cd ~/catkin_ws/src
+                    </div>
+                    <div class="cmd">
+                        $ git clone https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
+                    </div>
+                    <div class="cmd">
+                        $ git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+                    </div>
+                    <div class="cmd">
+                        $ git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+                    </div>
+                    <div class="cmd">
+                        $ sudo apt-get install ros-melodic-rosserial-python ros-melodic-tf
+                    </div>
+                    <div class="cmd">
+                        $ source ~/.bashrc
+                    </div>
+                    <div class="cmd">
+                        $ cd ~/catkin_ws && catkin_make -j1
+                    </div>
+                    <div class="cmd">
+                        $ source ~/catkin_ws/devel/setup.bash
+                    </div>
+                    <div class="cmd">
+                        $ rosrun turtlebot3_bringup create_udev_rules
+                    </div>
+                    <div class="cmd">
+                        $ echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc
+                    </div>
+                    <div class="cmd">
+                        $ sudo shutdown -r now
+                    </div>
+                    (This will cause the Jetson Nano to reboot)<br><br>
+                    At this point, you will need to edit your ~/.bashrc file to set up the IP address of the 
+                    turtlebot as well as the computer running roscore; this could be a separate computer or the 
+                    turtlebot. Run ifconfig to check the IP address of the turtlebot, then run:
+                    <div class="cmd">
+                        $ echo "export ROS_HOSTNAME={your ip address}" >> ~/.bashrc
+                    </div>
+                    <div class="cmd">
+                        $ echo "export ROS_MASTER_URI=http://{ip address of the computer running roscore}:11311" >> ~/.bashrc
+                    </div>
+                    <div class="cmd">
+                        $ source ~/.bashrc
+                    </div>
+                    To test out the Turtlebot ROS packages, see the Turtlebot <a href="turtleQuickStart.html">quick start</a> page.
+                </p>
+            </div>
+            <div id="s3" class="dark box">
+                <h4>Mynt Eye SDK Setup on the Jetson Nano:</h4>
+                <p>
+                    Before installing the Mynt Eye SDK, you may want to add swapspace to the Jetson Nano (by default it has none) because it may run out of RAM if you don't. To add 
+                    swapspace, follow the instructions <a target="_blank" href="https://www.jetsonhacks.com/2019/04/14/jetson-nano-use-more-memory/">here</a>, or run:
+                    <div class="cmd">
+                        $ git clone https://github.com/JetsonHacksNano/installSwapfile<br>
+                        $ cd installSwapfile<br>
+                        $ ./installSwapfile<br>
+                        $ sudo shutdown -r now
+                    </div>
+                </p>
+                <p>
+                    These instructions except for some minor changes are copied from <a target="_blank" href="https://mynt-eye-d-sdk.readthedocs.io/en/latest/installation/build_linux.html">here</a>.
+                </p>
+                <div class="cmd">
+                    $ sudo apt-get install libopencv-dev
+                </div>
+                <div class="cmd">
+                    $ sudo ln -sf /usr/lib/aarch64-linux-gnu/tegra/libGLX_nvidia.so.0 /usr/lib/aarch64-linux-gnu/libGL.so
+                </div>
+                <div class="cmd">
+                    $ git clone https://github.com/slightech/MYNT-EYE-D-SDK.git
+                </div>
+                <div class="cmd">
+                    $ cd MYNT-EYE-D-SDK
+                </div>
+                <div class="cmd">
+                    $ make init
+                </div>
+                <div class="cmd">
+                    $ make all
+                </div>
+                You can test the install up until this point by running (Mynt Eye must be plugged in):
+                <div class="cmd">
+                    $ cd MYNT-EYE-D-SDK/ <br>
+                    $ ./samples/_output/bin/get_image
+                </div>
+                More examples can be found on the <a href="myntExamples.html">Mynt Eye Examples page</a>. <br><br>
+                To install the Mynt Eye ROS packages, run:
+                <div class="cmd">
+                    $ make ros
+                </div>
+                To test out the Mynt Eye ROS packages, see the ROS Usage section of the <a href="myntExamples.html#ros">Mynt Eye Examples page</a>.
+            </div>
+        </div>
+    </section>
+
+    
+</body>
+
+</html>

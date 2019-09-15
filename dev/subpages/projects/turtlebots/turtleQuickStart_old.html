@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        Turtlebot3 Quickstart
+    </header>
+    
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <div class="dark box">
+            <p>
+                So, the turtlebot is <a href="turtleSetup.html">set up</a>, you have a <a href="turtleWorkstationSetup.html">computer set up</a> to work with it, you are on the same network as the turtlebot, the turtlebot
+                is powered on, your computer is turned on, the wifi is working, you are sure the turtlebot is on
+                the same wifi as you are, the turtlebot it not currently beeping at you, and it is not sitting
+                somewhere high off the ground. The basic steps to make the turtlebot drive are as follows:
+            </p>
+            <ol>
+                <li>Launch the roscore application on the master computer (likely your computer). To do this,
+                    run:
+                    <div class="cmd">$ roscore</div>
+                    in a terminal. It should complete looking something like: 
+                    <div class="cmd">
+                            <strong style="color:green">Do NOT type this into your terminal!</strong> <br>
+                            Press Ctrl-C to interrupt 
+                            <br>
+                            Done checking log file disk usage. Usage is <1GB.
+                            <br>
+                            started roslaunch server http://192.168.10.129:38411/
+                            <br>
+                            ros_comm version 1.12.14
+                            <br>
+                                                      
+                            SUMMARY
+                            <br>
+                            ========
+                            <br>
+                            PARAMETERS
+                            <br>
+                             * /rosdistro: kinetic
+                             <br>
+                             * /rosversion: 1.12.14
+                             <br>
+                            NODES
+                            <br>
+                            auto-starting new master
+                            <br>
+                            process[master]: started with pid [8814]
+                            <br>
+                            ROS_MASTER_URI=http://192.168.10.129:11311/
+                            <br>
+                            setting /run_id to 09283c5e-9d01-11e9-a5ce-2c6e8579d489
+                            <br>
+                            process[rosout-1]: started with pid [8827]
+                            <br>
+                            started core service [/rosout]
+                            <br>
+                    </div>
+                </li>
+                <li>
+                    SSH into the turtlebot (or hookup a monitor, mouse, and keyboard) and run the command:
+                    <div class="cmd">$ roslaunch turtlebot3_bringup turtlebot3_robot.launch</div>
+                    This will use roslaunch to launch the turtlebot3_bringup package using the turtlebot3_robot.launch 
+                    launchfile. 
+                    To ssh into a turtlebot you can use the command:
+                    <div class="cmd">$ ssh pi@turtlebot{turtlebot number}</div>
+                    replacing {turtlebot number} with the number of the turtlebot you are ssh'ing into. If prompted for
+                    a password type: "turtlebot". If the host cannot be resolved, replace "turtlebot#" with the ip address of
+                    the turtlebot, which is written on each turtlebot and looks like: 192.168.10.{something}.
+                    <br><br>
+                    If the roslaunch turtlebot3_bringup turtlebot3_robot.launch command completes successfully, you should
+                    see output like:
+                    <div class="cmd">
+                            <strong style="color:green">Do NOT type this into your terminal!</strong> <br>
+                            ... <br>
+                            [INFO] [1562098245.600566]: Setup publisher on /tf [tf/tfMessage] <br>
+                            [INFO] [1562098245.623450]: Note: subscribe buffer size is 1024 bytes <br>
+                            [INFO] [1562098245.625336]: Setup subscriber on cmd_vel [geometry_msgs/Twist] <br>
+                            [INFO] [1562098245.652826]: Setup subscriber on sound [turtlebot3_msgs/Sound] <br>
+                            [INFO] [1562098245.681316]: Setup subscriber on motor_power [std_msgs/Bool] <br>
+                            [INFO] [1562098245.707699]: Setup subscriber on reset [std_msgs/Empty] <br>
+                            [INFO] [1562098245.728411]: -------------------------- <br>
+                            [INFO] [1562098245.731990]: Connected to OpenCR board! <br>
+                            [INFO] [1562098245.735484]: This core(v1.2.0) is compatible with TB3 Burger <br>
+                            [INFO] [1562098245.739148]: -------------------------- <br>
+                            [INFO] [1562098245.742699]: Start Calibration of Gyro <br>
+                            [INFO] [1562098247.124711]: Calibration End <br>
+                    </div>
+                </li>
+                <li>
+                    Start the remote turtlebot package on your computer. To do this, run this command on your computer:
+                    <div class="cmd">$ roslaunch turtlebot3_bringup turtlebot3_remote.launch</div>
+                    You should see output similar to:
+                    <div class="cmd">
+                        <strong style="color:green">Do NOT type this into your terminal!</strong> <br>
+                        Checking log directory for disk usage. This may take awhile. <br>
+                        Press Ctrl-C to interrupt <br>
+                        Done checking log file disk usage. Usage is <1GB. <br>
+
+                        started roslaunch server http://192.168.10.129:40973/ <br>
+
+                        SUMMARY <br>
+                        ======== <br>
+
+                        PARAMETERS <br>
+                        * /robot_description: <?xml version="1.... <br>
+                        * /robot_state_publisher/publish_frequency: 50.0 <br>
+                        * /robot_state_publisher/tf_prefix: <br>
+                        * /rosdistro: kinetic <br>
+                        * /rosversion: 1.12.14 <br>
+                        NODES <br>
+                        / <br>
+                            robot_state_publisher (robot_state_publisher/robot_state_publisher) <br>
+
+                        ROS_MASTER_URI=http://192.168.10.129:11311 <br>
+
+                        process[robot_state_publisher-1]: started with pid [11134] <br>
+                    </div> 
+                </li>
+                <li>
+                    You have completed all of the basic setup steps to launch the turtlebot's ROS nodes, so if you  
+                    type:
+                    <div class="cmd">$ rostopic list</div>
+                    you should see a variety of topics. Rviz can be used to easily visualize the data:
+                    <div class="cmd">$ rosrun rviz rviz -d `rospack find turtlebot3_description`/rviz/model.rviz</div>
+                    To try driving the robot around, you can use:
+                    <div class="cmd">$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch</div>
+                    You can also cause the turtlebot to move by directly publishing to the /cmd_vel topic.
+                    To publish to a ROS topic from the command line, use:
+                    <div class="cmd">$ rostopic pub {topic name} {topic message type} {topic message}</div>
+                    For example, to make the turtlebot go forwards you could use:
+                    <div class="cmd">$ rostopic pub /cmd_vel geometry_msgs/Twist "linear:<br>
+                        &nbsp &nbsp  x: 1.0<br>
+                        &nbsp &nbsp    y: 0.0<br>
+                        &nbsp &nbsp   z: 0.0<br>
+                         angular:<br>
+                        &nbsp &nbsp   x: 0.0<br>
+                        &nbsp &nbsp   y: 0.0<br>
+                        &nbsp &nbsp   z: 0.0" 
+                          </div>
+                    To stop it, run:
+                    <div class="cmd">$ rostopic pub /cmd_vel geometry_msgs/Twist "linear:<br>
+                        &nbsp &nbsp   x: 0.0<br>
+                        &nbsp &nbsp   y: 0.0<br>
+                        &nbsp &nbsp   z: 0.0<br>
+                          angular:<br>
+                        &nbsp &nbsp   x: 0.0<br>
+                        &nbsp &nbsp   y: 0.0<br>
+                        &nbsp &nbsp   z: 0.0" 
+                          </div>
+                    To list the topics you can publish to, run:
+                    <div class="cmd">$ rostopic list</div>
+                    If you want to figure out the message format for any given topic, simply his [tab] after
+                    typing "rostopic pub {topic name}". For example, a quick way to publish to the motor topic
+                    would be:
+                    <div class="cmd">$ rostopic pub /cmd_vel [tab] [tab]</div>
+                    <br>
+                    <br>
+                    To try out more examples with the turtlebot3, consult the 
+                    <a target="_blank" href="http://emanual.robotis.com/docs/en/platform/turtlebot3/basic_operation/#basic-operation">e-Manual</a>
+                    , which is where I got these commands from.
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    
+</body>
+
+</html>

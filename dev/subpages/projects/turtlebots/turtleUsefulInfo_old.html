@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Turtlebot Documentation</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+
+<body>
+    <header>
+        Turtlebot3 Useful Info
+    </header>
+
+    <div id="nav-placeholder">
+        <!-- Placeholder for the navigation bar -->
+    </div>
+    <!-- Script to load in the navigation bar -->
+    <script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+    </script>
+
+    <!-- Main page content -->
+    <section>
+        <div class="dark box">
+            <h4 style="color: #f44336">Warnings:</h4>
+            <ul>
+                <li>Do NOT power the turtlebots via the usb port on the raspberry pi, I have killed a pi doing this</li>
+                <li>Do NOT leave the batteries plugged into the turtlebots or they will be discharged down to 0v. If this happens, I do not recommend charging them again (the chargers won’t let you anyway)</li>
+            
+            </ul>
+        </div>
+        <div class="dark box">
+            <h4>Tips:</h4>
+            <ul>
+                <li>The turtlebots can be powered by the same adapters used to power the lipo chargers</li>
+                <li>The OpenCR board has LEDs on it. The red one means low battery. There is also often a beeping accompanied by low battery. If this led is on it can cause some things to work but others (such as getting data back to the workstation) to stop working. The blinking orange light is normal (not sure what it means though)</li>
+                <li>The OpenCR board “firmware” is actually just an arduino sketch you upload to the board</li>
+            
+            </ul>
+        </div>
+        <div class="dark box">
+            <h4>Other Resources:</h4>
+            <a target="_blank" href="http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/">Robotis e-Manual</a><br>
+            <a target="_blank" href="http://www.pishrobot.com/wp-content/uploads/2018/02/ROS-robot-programming-book-by-turtlebo3-developers-EN.pdf">Free PDF of a book on ROS and turtlebots (yes, this is legit)</a><br>
+            <a target="_blank" href="http://www.robotis.us/turtlebot-3/">Turtlebot Overview</a><br>
+        </div>
+    </section>
+
+    
+</body>
+
+</html>
